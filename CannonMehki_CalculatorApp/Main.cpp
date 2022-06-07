@@ -23,7 +23,7 @@ Main::Main() : wxFrame(nullptr, wxID_ANY, "Calculator App", wxPoint(30, 30), wxS
 	m_btnMod = new wxButton(this, wxID_ANY, "%", wxPoint(469, 163), wxSize(150, 50));
 
 	m_btnClear = new wxButton(this, wxID_ANY, "A/C", wxPoint(316, 375), wxSize(150, 50));
-	m_btnEnter = new wxButton(this, wxID_ANY, "=", wxPoint(10, 163), wxSize(150, 50));
+	m_btnEnter = new wxButton(this, wxID_ANY, "Enter", wxPoint(163, 428), wxSize(303, 50));
 	m_btnNegative = new wxButton(this, wxID_ANY, "+/-", wxPoint(10, 375), wxSize(150, 50));
 
 	m_btnBin = new wxButton(this, wxID_ANY, "bin", wxPoint(10, 163), wxSize(150, 50));
