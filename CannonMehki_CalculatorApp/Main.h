@@ -8,7 +8,7 @@ public:
 	~Main();
 
 public:
-	wxListBox* m_list1 = nullptr;
+	wxTextCtrl* m_list1 = nullptr;
 
 	wxButton* m_btn0 = nullptr;
 	wxButton* m_btn1 = nullptr;
@@ -35,6 +35,8 @@ public:
 	wxButton* m_btnBin = nullptr;
 	wxButton* m_btnHex = nullptr;
 	wxButton* m_btnDec = nullptr;
+
+	bool bFirstClick = true;
 	
 	void OnButtonClicked(wxCommandEvent &evt);
 
