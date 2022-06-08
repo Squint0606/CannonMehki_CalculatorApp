@@ -35,6 +35,9 @@ public:
 	wxButton* m_btnBin = nullptr;
 	wxButton* m_btnHex = nullptr;
 	wxButton* m_btnDec = nullptr;
+	
+	void OnButtonClicked(wxCommandEvent &evt);
 
+	wxDECLARE_EVENT_TABLE();
 };
 

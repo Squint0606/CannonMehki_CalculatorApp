@@ -1,5 +1,9 @@
 #include "Main.h"
 
+wxBEGIN_EVENT_TABLE(Main, wxFrame)
+	EVT_BUTTON(10001, OnButtonClicked)
+wxEND_EVENT_TABLE()
+
 Main::Main() : wxFrame(nullptr, wxID_ANY, "Calculator App", wxPoint(30, 30), wxSize(800, 600))
 {
 	m_list1 = new wxListBox(this, wxID_ANY, wxPoint(10, 10), wxSize(609, 150));
@@ -34,4 +38,10 @@ Main::Main() : wxFrame(nullptr, wxID_ANY, "Calculator App", wxPoint(30, 30), wxS
 Main::~Main()
 {
 
+}
+
+void Main::OnButtonClicked(wxCommandEvent& evt)
+{
+	m_list1->Append();
+	evt.Skip();
 }
