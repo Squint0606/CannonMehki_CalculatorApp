@@ -1,5 +1,6 @@
 #pragma once
 #include "wx/wx.h"
+#include "ButtonFactory.h"
 
 class Main : public wxFrame
 {
@@ -8,7 +9,7 @@ public:
 	~Main();
 
 public:
-	wxListBox* m_list1 = nullptr;
+	wxTextCtrl* m_list1 = nullptr;
 
 	wxButton* m_btn0 = nullptr;
 	wxButton* m_btn1 = nullptr;
