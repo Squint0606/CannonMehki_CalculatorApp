@@ -37,5 +37,10 @@ public:
 	wxButton* m_btnHex = nullptr;
 	wxButton* m_btnDec = nullptr;
 
+	bool bFirstClick = true;
+	
+	void OnButtonClicked(wxCommandEvent &evt);
+
+	wxDECLARE_EVENT_TABLE();
 };
 
