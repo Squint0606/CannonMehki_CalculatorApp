@@ -144,13 +144,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ButtonFactory.h" />
+    <ClInclude Include="calculatorProcessor.h" />
     <ClInclude Include="cApp.h" />
+    <ClInclude Include="IBaseCommand.h" />
     <ClInclude Include="Main.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="cApp.cpp" />
+    <ClCompile Include="IBaseCommand.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="calculatorProcessor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
