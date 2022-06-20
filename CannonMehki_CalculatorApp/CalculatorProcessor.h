@@ -43,9 +43,10 @@
 
 		std::string getMultiplyResult(int num1, int num2)
 		{
-			std::string ans = std::to_string(num1 * num2);
+			/*std::string ans = std::to_string(num1 * num2);
 
-			return ans;
+			return ans;*/
+			return std::to_string(num1 * num2);
 		}
 
 		std::string getDivideResult(int num1, int num2)

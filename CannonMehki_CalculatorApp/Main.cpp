@@ -4,27 +4,27 @@
 //#include <string>
 
 wxBEGIN_EVENT_TABLE(Main, wxFrame)
-	EVT_BUTTON(0, OnButtonClicked)
-	EVT_BUTTON(1, OnButtonClicked)
-	EVT_BUTTON(2, OnButtonClicked)
-	EVT_BUTTON(3, OnButtonClicked)
-	EVT_BUTTON(4, OnButtonClicked)
-		EVT_BUTTON(5, OnButtonClicked)
-		EVT_BUTTON(6, OnButtonClicked)
-		EVT_BUTTON(7, OnButtonClicked)
-		EVT_BUTTON(8, OnButtonClicked)
-		EVT_BUTTON(9, OnButtonClicked)
-	EVT_BUTTON(10, OnButtonClicked)
-	EVT_BUTTON(11, OnButtonClicked)
-	EVT_BUTTON(12, OnButtonClicked)
-	EVT_BUTTON(13, OnButtonClicked)
-	EVT_BUTTON(14, OnButtonClicked)
-		EVT_BUTTON(15, OnButtonClicked)
-		EVT_BUTTON(16, OnButtonClicked)
-		EVT_BUTTON(17, OnButtonClicked)
-		EVT_BUTTON(18, OnButtonClicked)
-		EVT_BUTTON(19, OnButtonClicked)
-	EVT_BUTTON(20, OnButtonClicked)
+EVT_BUTTON(0, OnButtonClicked)
+EVT_BUTTON(1, OnButtonClicked)
+EVT_BUTTON(2, OnButtonClicked)
+EVT_BUTTON(3, OnButtonClicked)
+EVT_BUTTON(4, OnButtonClicked)
+EVT_BUTTON(5, OnButtonClicked)
+EVT_BUTTON(6, OnButtonClicked)
+EVT_BUTTON(7, OnButtonClicked)
+EVT_BUTTON(8, OnButtonClicked)
+EVT_BUTTON(9, OnButtonClicked)
+EVT_BUTTON(10, OnButtonClicked)
+EVT_BUTTON(11, OnButtonClicked)
+EVT_BUTTON(12, OnButtonClicked)
+EVT_BUTTON(13, OnButtonClicked)
+EVT_BUTTON(14, OnButtonClicked)
+EVT_BUTTON(15, OnButtonClicked)
+EVT_BUTTON(16, OnButtonClicked)
+EVT_BUTTON(17, OnButtonClicked)
+EVT_BUTTON(18, OnButtonClicked)
+EVT_BUTTON(19, OnButtonClicked)
+EVT_BUTTON(20, OnButtonClicked)
 wxEND_EVENT_TABLE()
 
 Main::Main() : wxFrame(nullptr, wxID_ANY, "Calculator App", wxPoint(30, 30), wxSize(800, 600))
@@ -34,7 +34,7 @@ Main::Main() : wxFrame(nullptr, wxID_ANY, "Calculator App", wxPoint(30, 30), wxS
 	m_txtBox1 = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 10), wxSize(609, 150));
 
 	m_txtBox1->SetFont(wxFont(35, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false));
-	
+
 	/*m_btn0 = new wxButton(this, wxID_ANY, "0", wxPoint(163, 375), wxSize(150, 50));
 	m_btn1 = new wxButton(this, wxID_ANY, "1", wxPoint(10, 322), wxSize(150, 50));
 	m_btn2 = new wxButton(this, wxID_ANY, "2", wxPoint(163, 322), wxSize(150, 50));
@@ -73,9 +73,9 @@ Main::~Main()
 
 }
 
-void Main::OnButtonClicked(wxCommandEvent &evt)
+void Main::OnButtonClicked(wxCommandEvent& evt)
 {
-	if(evt.GetId() == 0)
+	if (evt.GetId() == 0)
 		m_txtBox1->AppendText(m_btn0->GetLabel());
 	if (evt.GetId() == 1)
 		m_txtBox1->AppendText(m_btn1->GetLabel());
@@ -85,17 +85,17 @@ void Main::OnButtonClicked(wxCommandEvent &evt)
 		m_txtBox1->AppendText(m_btn3->GetLabel());
 	if (evt.GetId() == 4)
 		m_txtBox1->AppendText(m_btn4->GetLabel());
-		if (evt.GetId() == 5)
-			m_txtBox1->AppendText(m_btn5->GetLabel());
-		if (evt.GetId() == 6)
-			m_txtBox1->AppendText(m_btn6->GetLabel());
-		if (evt.GetId() == 7)
-			m_txtBox1->AppendText(m_btn7->GetLabel());
-		if (evt.GetId() == 8)
-			m_txtBox1->AppendText(m_btn8->GetLabel());
-		if (evt.GetId() == 9)
-			m_txtBox1->AppendText(m_btn9->GetLabel());
-	if(evt.GetId() == 10)
+	if (evt.GetId() == 5)
+		m_txtBox1->AppendText(m_btn5->GetLabel());
+	if (evt.GetId() == 6)
+		m_txtBox1->AppendText(m_btn6->GetLabel());
+	if (evt.GetId() == 7)
+		m_txtBox1->AppendText(m_btn7->GetLabel());
+	if (evt.GetId() == 8)
+		m_txtBox1->AppendText(m_btn8->GetLabel());
+	if (evt.GetId() == 9)
+		m_txtBox1->AppendText(m_btn9->GetLabel());
+	if (evt.GetId() == 10)
 		m_txtBox1->AppendText(m_btnAdd->GetLabel());
 	if (evt.GetId() == 11)
 		m_txtBox1->AppendText(m_btnSub->GetLabel());
@@ -112,36 +112,39 @@ void Main::OnButtonClicked(wxCommandEvent &evt)
 	wxString number2;
 	wxString equation;
 	wxString operation;
-	int j = 0;
+	int j = 0; //first char after operation sign in the stored equation
 	calculatorProcessor* processor = calculatorProcessor::GetInstance();
 
 	if (evt.GetId() == 16)
 	{
-		equation = m_txtBox1->GetLabel();
+		equation = m_txtBox1->GetValue();
 		for (int i = 0; i < equation.length(); i++)
 		{
-			if (equation[i] != '+' || equation[i] != '-' ||
-				equation[i] != '*' || equation[i] != '/')
+			if (equation[i] != '+' && equation[i] != '-' &&
+				equation[i] != '*' && equation[i] != '/')
 			{
 				number1 += equation[i];
-				//equation.erase(equation[0]);
 			}
-			else
-			{
-				//std::cout << "Unknown operation";
-				operation = equation[i];
-				j = i;
-			}
-			for (;j < equation.length(); j++)
-			{
-				if (equation[j] != '+' || equation[j] != '-' ||
-					equation[j] != '*' || equation[j] != '/')
-				{
-					number2 += equation[j];
-				}
-			}
+			if (equation[i] == '+' || equation[i] == '-' ||
+				equation[i] == '*' || equation[i] == '/')
+				 {
+				 	operation = equation[i];
+				 	j = i;
+					break;
+				 
+				 }
 			
+
 		}
+		for (; j < equation.length(); j++)
+		{
+			if (equation[j] != '+' && equation[j] != '-' &&
+				equation[j] != '*' && equation[j] != '/')
+			{
+				number2 += equation[j];
+			}
+		}
+
 		if (operation == '+')
 		{
 			m_txtBox1->SetLabelText(processor->getAddResult(std::atoi(number1), std::atoi(number2)));
