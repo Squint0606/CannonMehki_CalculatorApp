@@ -10,7 +10,7 @@ public:
 	~cApp();
 
 private:
-	Main *m_txtBox1 = nullptr;
+	Main *m_frame1 = nullptr;
 
 public:
 	virtual bool OnInit();

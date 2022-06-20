@@ -31,9 +31,9 @@ Main::Main() : wxFrame(nullptr, wxID_ANY, "Calculator App", wxPoint(30, 30), wxS
 {
 	ButtonFactory factory;
 
-	m_list1 = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 10), wxSize(609, 150));
+	m_txtBox1 = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 10), wxSize(609, 150));
 
-	m_list1->SetFont(wxFont(35, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false));
+	m_txtBox1->SetFont(wxFont(35, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false));
 	
 	/*m_btn0 = new wxButton(this, wxID_ANY, "0", wxPoint(163, 375), wxSize(150, 50));
 	m_btn1 = new wxButton(this, wxID_ANY, "1", wxPoint(10, 322), wxSize(150, 50));
@@ -59,7 +59,7 @@ Main::Main() : wxFrame(nullptr, wxID_ANY, "Calculator App", wxPoint(30, 30), wxS
 	m_btnDiv = factory.createButton(this, 13, '/', 469, 322, 150, 50);
 	m_btnMod = factory.createButton(this, 14, '%', 469, 163, 150, 50);
 
-	m_btnClear = factory.createButton(this, 15, "A / C", 316, 375, 150, 50);
+	m_btnClear = factory.createButton(this, 15, "A/C", 316, 375, 150, 50);
 	m_btnEnter = factory.createButton(this, 16, '=', 163, 428, 303, 50);
 	m_btnNegative = factory.createButton(this, 17, "+/-", 10, 375, 150, 50);
 
@@ -76,35 +76,35 @@ Main::~Main()
 void Main::OnButtonClicked(wxCommandEvent &evt)
 {
 	if(evt.GetId() == 0)
-		m_list1->AppendText(m_btn0->GetLabel());
+		m_txtBox1->AppendText(m_btn0->GetLabel());
 	if (evt.GetId() == 1)
-		m_list1->AppendText(m_btn1->GetLabel());
+		m_txtBox1->AppendText(m_btn1->GetLabel());
 	if (evt.GetId() == 2)
-		m_list1->AppendText(m_btn2->GetLabel());
+		m_txtBox1->AppendText(m_btn2->GetLabel());
 	if (evt.GetId() == 3)
-		m_list1->AppendText(m_btn3->GetLabel());
+		m_txtBox1->AppendText(m_btn3->GetLabel());
 	if (evt.GetId() == 4)
-		m_list1->AppendText(m_btn4->GetLabel());
+		m_txtBox1->AppendText(m_btn4->GetLabel());
 		if (evt.GetId() == 5)
-			m_list1->AppendText(m_btn5->GetLabel());
+			m_txtBox1->AppendText(m_btn5->GetLabel());
 		if (evt.GetId() == 6)
-			m_list1->AppendText(m_btn6->GetLabel());
+			m_txtBox1->AppendText(m_btn6->GetLabel());
 		if (evt.GetId() == 7)
-			m_list1->AppendText(m_btn7->GetLabel());
+			m_txtBox1->AppendText(m_btn7->GetLabel());
 		if (evt.GetId() == 8)
-			m_list1->AppendText(m_btn8->GetLabel());
+			m_txtBox1->AppendText(m_btn8->GetLabel());
 		if (evt.GetId() == 9)
-			m_list1->AppendText(m_btn9->GetLabel());
+			m_txtBox1->AppendText(m_btn9->GetLabel());
 	if(evt.GetId() == 10)
-		m_list1->AppendText(m_btnAdd->GetLabel());
+		m_txtBox1->AppendText(m_btnAdd->GetLabel());
 	if (evt.GetId() == 11)
-		m_list1->AppendText(m_btnSub->GetLabel());
+		m_txtBox1->AppendText(m_btnSub->GetLabel());
 	if (evt.GetId() == 12)
-		m_list1->AppendText(m_btnMult->GetLabel());
+		m_txtBox1->AppendText(m_btnMult->GetLabel());
 	if (evt.GetId() == 13)
-		m_list1->AppendText(m_btnDiv->GetLabel());
+		m_txtBox1->AppendText(m_btnDiv->GetLabel());
 	if (evt.GetId() == 14)
-		m_list1->AppendText(m_btnMod->GetLabel());
+		m_txtBox1->AppendText(m_btnMod->GetLabel());
 	if (evt.GetId() == 15)
 		m_txtBox1->SetLabelText("");
 
