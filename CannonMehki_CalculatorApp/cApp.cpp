@@ -14,8 +14,8 @@ cApp::~cApp()
 
 bool cApp::OnInit()
 {
-	m_frame1 = new Main();
-	m_frame1->Show();
+	m_txtBox1 = new Main();
+	m_txtBox1->Show();
 
 	return true;
 }

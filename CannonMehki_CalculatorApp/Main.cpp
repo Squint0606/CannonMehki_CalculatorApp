@@ -1,5 +1,7 @@
 #include "Main.h"
 #include "ButtonFactory.h"
+#include "calculatorProcessor.h"
+//#include <string>
 
 wxBEGIN_EVENT_TABLE(Main, wxFrame)
 	EVT_BUTTON(0, OnButtonClicked)
@@ -57,13 +59,13 @@ Main::Main() : wxFrame(nullptr, wxID_ANY, "Calculator App", wxPoint(30, 30), wxS
 	m_btnDiv = factory.createButton(this, 13, '/', 469, 322, 150, 50);
 	m_btnMod = factory.createButton(this, 14, '%', 469, 163, 150, 50);
 
-	m_btnClear = factory.createButton(this, 15, 'A/C', 316, 375, 150, 50);
+	m_btnClear = factory.createButton(this, 15, "A / C", 316, 375, 150, 50);
 	m_btnEnter = factory.createButton(this, 16, '=', 163, 428, 303, 50);
-	m_btnNegative = factory.createButton(this, 17, '+/-', 10, 375, 150, 50);
+	m_btnNegative = factory.createButton(this, 17, "+/-", 10, 375, 150, 50);
 
-	m_btnBin = factory.createButton(this, 18, 'bin', 10, 163, 150, 50);
-	m_btnHex = factory.createButton(this, 19, 'hex', 163, 163, 150, 50);
-	m_btnDec = factory.createButton(this, 20, 'dec', 316, 163, 150, 50);
+	m_btnBin = factory.createButton(this, 18, "bin", 10, 163, 150, 50);
+	m_btnHex = factory.createButton(this, 19, "hex", 163, 163, 150, 50);
+	m_btnDec = factory.createButton(this, 20, "dec", 316, 163, 150, 50);
 }
 
 Main::~Main()
@@ -104,7 +106,58 @@ void Main::OnButtonClicked(wxCommandEvent &evt)
 	if (evt.GetId() == 14)
 		m_list1->AppendText(m_btnMod->GetLabel());
 	if (evt.GetId() == 15)
-		m_list1->SetLabelText("");
+		m_txtBox1->SetLabelText("");
 
+	wxString number1;
+	wxString number2;
+	wxString equation;
+	wxString operation;
+	int j = 0;
+	calculatorProcessor* processor = calculatorProcessor::GetInstance();
+
+	if (evt.GetId() == 16)
+	{
+		equation = m_txtBox1->GetLabel();
+		for (int i = 0; i < equation.length(); i++)
+		{
+			if (equation[i] != '+' || equation[i] != '-' ||
+				equation[i] != '*' || equation[i] != '/')
+			{
+				number1 += equation[i];
+				//equation.erase(equation[0]);
+			}
+			else
+			{
+				//std::cout << "Unknown operation";
+				operation = equation[i];
+				j = i;
+			}
+			for (;j < equation.length(); j++)
+			{
+				if (equation[j] != '+' || equation[j] != '-' ||
+					equation[j] != '*' || equation[j] != '/')
+				{
+					number2 += equation[j];
+				}
+			}
+			
+		}
+		if (operation == '+')
+		{
+			m_txtBox1->SetLabelText(processor->getAddResult(std::atoi(number1), std::atoi(number2)));
+		}
+		if (operation == '-')
+		{
+			m_txtBox1->SetLabelText(processor->getSubtractResult(std::atoi(number1), std::atoi(number2)));
+		}
+		if (operation == '*')
+		{
+			m_txtBox1->SetLabelText(processor->getMultiplyResult(std::atoi(number1), std::atoi(number2)));
+		}
+		if (operation == '/')
+		{
+			m_txtBox1->SetLabelText(processor->getDivideResult(std::atoi(number1), std::atoi(number2)));
+		}
+	}
 	evt.Skip();
 }

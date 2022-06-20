@@ -1,6 +1,6 @@
 #include "ButtonFactory.h"
 
-wxButton* ButtonFactory :: createButton(wxWindow* window, int ID, char symbol,int x, int y, int length, int width)
+wxButton* ButtonFactory :: createButton(wxWindow* window, int ID, wxString symbol,int x, int y, int length, int width)
 {
 	return new wxButton(window, ID, symbol, wxPoint(x, y), wxSize(length, width));
 }

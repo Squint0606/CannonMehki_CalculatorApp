@@ -9,7 +9,7 @@ public:
 	~Main();
 
 public:
-	wxTextCtrl* m_list1 = nullptr;
+	wxTextCtrl* m_txtBox1 = nullptr;
 
 	wxButton* m_btn0 = nullptr;
 	wxButton* m_btn1 = nullptr;

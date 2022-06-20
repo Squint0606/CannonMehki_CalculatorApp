@@ -4,7 +4,7 @@
 class ButtonFactory
 {
 public:
-	wxButton* createButton(wxWindow* window, int ID, char symbol, int x, int y, int length, int width);
+	wxButton* createButton(wxWindow* window, int ID, wxString symbol, int x, int y, int length, int width);
 
 	/*wxButton* setButton1();
 	wxButton* setButton2();
