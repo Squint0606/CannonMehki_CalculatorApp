@@ -2,6 +2,5 @@
 class IBaseCommand
 {
 public:
-	virtual void Exectute() = 0;
+	virtual void Execute() = 0;
 };
-

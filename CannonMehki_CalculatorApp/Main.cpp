@@ -2,6 +2,12 @@
 #include "ButtonFactory.h"
 #include "calculatorProcessor.h"
 #include <string>
+#include <vector>
+#include "IBaseCommand.h"
+#include "AddCommand.h"
+#include "SubtractCommand.h"
+#include "MultiplyCommand.h"
+#include "DivideCommand.h"
 
 wxBEGIN_EVENT_TABLE(Main, wxFrame)
 	EVT_BUTTON(0, OnButtonClicked)
@@ -110,6 +116,7 @@ void Main::OnButtonClicked(wxCommandEvent &evt)
 	wxString operation;
 	int j = 0;
 	calculatorProcessor* processor = calculatorProcessor::GetInstance();
+	std::vector<IBaseCommand*> commands;
 
 	if (evt.GetId() == 16)
 	{
@@ -136,26 +143,64 @@ void Main::OnButtonClicked(wxCommandEvent &evt)
 		}
 		if (operation == '+')
 		{
+			AddCommand add(processor , std::atoi(number1), std::atoi(number2));
 			m_txtBox1->SetLabelText(processor->getAddResult(std::atoi(number1), std::atoi(number2)));
-
+			commands.push_back(&add);
 		}
 		if (operation == '-')
 		{
+			SubtractCommand subtract(processor, std::atoi(number1), std::atoi(number2));
 			m_txtBox1->SetLabelText(processor->getSubtractResult(std::atoi(number1), std::atoi(number2)));
-
+			commands.push_back(&subtract);
 		}
 		if (operation == '*')
 		{
+			MultiplyCommand multiply(processor, std::atoi(number1), std::atoi(number2));
 			m_txtBox1->SetLabelText(processor->getMultiplyResult(std::atoi(number1), std::atoi(number2)));
-
+			commands.push_back(&multiply);
 		}
 		if (operation == '/')
 		{
+			DivideCommand divide(processor, std::atoi(number1), std::atoi(number2));
 			m_txtBox1->SetLabelText(processor->getDivideResult(std::atoi(number1), std::atoi(number2)));
-
+			commands.push_back(&divide);
 		}
-
+		for (int i = 0; i < commands.size(); i++)
+		{
+			commands[i]->Execute();
+		}
+		commands.clear();
 	}
-
 	evt.Skip();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//For the calculator test lab - "Task.run()" makes fuctions run in the background, constantly.
+//right click solution
+//add new procet
+//type in test
+//select c++ (unit) test, name it CannonMehki_CalculatorAppTests
+//add existing item, browse to mathHelpers
+//inclde .h and .cpp
+//#include relative path of Calculator app.h and buttonFactory.h
+//
+//"Assert::AreEqual(desired assertion, expected solution)"
+//when test explorer is clicked on, click run test(s)
+//
+
+
