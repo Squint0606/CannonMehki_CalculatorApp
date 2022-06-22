@@ -120,25 +120,30 @@ void Main::OnButtonClicked(wxCommandEvent &evt)
 
 	if (evt.GetId() == 16)
 	{
-		equation = m_txtBox1->GetLabel();
+		equation = m_txtBox1->GetValue();
 		for (int i = 0; i < equation.length(); i++)
 		{
-			if (equation[i] != '+' || equation[i] != '-' ||
-				equation[i] != '*' || equation[i] != '/')
+			if (equation[i] != '+' && equation[i] != '-' &&
+				equation[i] != '*' && equation[i] != '/')
 			{
 				number1 += equation[i];
 				//equation.erase(equation[0]);
 			}
-			else
+			if (equation[i] == '+' || equation[i] == '-' ||
+				equation[i] == '*' || equation[i] == '/')
 			{
 				//std::cout << "Unknown operation";
 				operation = equation[i];
 				j = i;
+				break;
 			}
-			if (equation[i] != '+' || equation[i] != '-' ||
-				equation[i] != '*' || equation[i] != '/')
+		}
+		for (; j < equation.Length(); j++)
+		{
+			if (equation[j] != '+' && equation[j] != '-' &&
+				equation[j] != '*' && equation[j] != '/')
 			{
-				number2 += equation[i];
+				number2 += equation[j];
 			}
 		}
 		if (operation == '+')
