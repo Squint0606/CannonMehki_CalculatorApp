@@ -1,7 +1,13 @@
 #include "Main.h"
 #include "ButtonFactory.h"
 #include "calculatorProcessor.h"
-//#include <string>
+#include <string>
+#include <vector>
+#include "IBaseCommand.h"
+#include "AddCommand.h"
+#include "SubtractCommand.h"
+#include "MultiplyCommand.h"
+#include "DivideCommand.h"
 
 wxBEGIN_EVENT_TABLE(Main, wxFrame)
 EVT_BUTTON(0, OnButtonClicked)
@@ -35,11 +41,7 @@ Main::Main() : wxFrame(nullptr, wxID_ANY, "Calculator App", wxPoint(30, 30), wxS
 
 	m_txtBox1->SetFont(wxFont(35, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false));
 
-	/*m_btn0 = new wxButton(this, wxID_ANY, "0", wxPoint(163, 375), wxSize(150, 50));
-	m_btn1 = new wxButton(this, wxID_ANY, "1", wxPoint(10, 322), wxSize(150, 50));
-	m_btn2 = new wxButton(this, wxID_ANY, "2", wxPoint(163, 322), wxSize(150, 50));
-	m_btn3 = new wxButton(this, wxID_ANY, "3", wxPoint(316, 322), wxSize(150, 50));
-	m_btn4 = new wxButton(this, wxID_ANY, "4", wxPoint(10, 269), wxSize(150, 50));*/
+	
 
 	m_btn0 = factory.createButton(this, 0, '0', 163, 375, 150, 50);
 	m_btn1 = factory.createButton(this, 1, '1', 10, 322, 150, 50);
@@ -75,7 +77,7 @@ Main::~Main()
 
 void Main::OnButtonClicked(wxCommandEvent& evt)
 {
-	if (evt.GetId() == 0)
+	if(evt.GetId() == 0)
 		m_txtBox1->AppendText(m_btn0->GetLabel());
 	if (evt.GetId() == 1)
 		m_txtBox1->AppendText(m_btn1->GetLabel());
@@ -85,17 +87,17 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 		m_txtBox1->AppendText(m_btn3->GetLabel());
 	if (evt.GetId() == 4)
 		m_txtBox1->AppendText(m_btn4->GetLabel());
-	if (evt.GetId() == 5)
-		m_txtBox1->AppendText(m_btn5->GetLabel());
-	if (evt.GetId() == 6)
-		m_txtBox1->AppendText(m_btn6->GetLabel());
-	if (evt.GetId() == 7)
-		m_txtBox1->AppendText(m_btn7->GetLabel());
-	if (evt.GetId() == 8)
-		m_txtBox1->AppendText(m_btn8->GetLabel());
-	if (evt.GetId() == 9)
-		m_txtBox1->AppendText(m_btn9->GetLabel());
-	if (evt.GetId() == 10)
+		if (evt.GetId() == 5)
+			m_txtBox1->AppendText(m_btn5->GetLabel());
+		if (evt.GetId() == 6)
+			m_txtBox1->AppendText(m_btn6->GetLabel());
+		if (evt.GetId() == 7)
+			m_txtBox1->AppendText(m_btn7->GetLabel());
+		if (evt.GetId() == 8)
+			m_txtBox1->AppendText(m_btn8->GetLabel());
+		if (evt.GetId() == 9)
+			m_txtBox1->AppendText(m_btn9->GetLabel());
+	if(evt.GetId() == 10)
 		m_txtBox1->AppendText(m_btnAdd->GetLabel());
 	if (evt.GetId() == 11)
 		m_txtBox1->AppendText(m_btnSub->GetLabel());
@@ -112,8 +114,9 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 	wxString number2;
 	wxString equation;
 	wxString operation;
-	int j = 0; //first char after operation sign in the stored equation
+	int j = 0;
 	calculatorProcessor* processor = calculatorProcessor::GetInstance();
+	std::vector<IBaseCommand*> commands;
 
 	if (evt.GetId() == 16)
 	{
@@ -124,19 +127,18 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 				equation[i] != '*' && equation[i] != '/')
 			{
 				number1 += equation[i];
+				//equation.erase(equation[0]);
 			}
 			if (equation[i] == '+' || equation[i] == '-' ||
 				equation[i] == '*' || equation[i] == '/')
-				 {
-				 	operation = equation[i];
-				 	j = i;
-					break;
-				 
-				 }
-			
-
+			{
+				//std::cout << "Unknown operation";
+				operation = equation[i];
+				j = i;
+				break;
+			}
 		}
-		for (; j < equation.length(); j++)
+		for (; j < equation.Length(); j++)
 		{
 			if (equation[j] != '+' && equation[j] != '-' &&
 				equation[j] != '*' && equation[j] != '/')
@@ -144,23 +146,66 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 				number2 += equation[j];
 			}
 		}
-
 		if (operation == '+')
 		{
+			AddCommand add(processor , std::atoi(number1), std::atoi(number2));
 			m_txtBox1->SetLabelText(processor->getAddResult(std::atoi(number1), std::atoi(number2)));
+			commands.push_back(&add);
 		}
 		if (operation == '-')
 		{
+			SubtractCommand subtract(processor, std::atoi(number1), std::atoi(number2));
 			m_txtBox1->SetLabelText(processor->getSubtractResult(std::atoi(number1), std::atoi(number2)));
+			commands.push_back(&subtract);
 		}
 		if (operation == '*')
 		{
+			MultiplyCommand multiply(processor, std::atoi(number1), std::atoi(number2));
 			m_txtBox1->SetLabelText(processor->getMultiplyResult(std::atoi(number1), std::atoi(number2)));
+			commands.push_back(&multiply);
 		}
 		if (operation == '/')
 		{
+			DivideCommand divide(processor, std::atoi(number1), std::atoi(number2));
 			m_txtBox1->SetLabelText(processor->getDivideResult(std::atoi(number1), std::atoi(number2)));
+			commands.push_back(&divide);
 		}
+		for (int i = 0; i < commands.size(); i++)
+		{
+			commands[i]->Execute();
+		}
+		commands.clear();
 	}
 	evt.Skip();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//For the calculator test lab - "Task.run()" makes fuctions run in the background, constantly.
+//right click solution
+//add new procet
+//type in test
+//select c++ (unit) test, name it CannonMehki_CalculatorAppTests
+//add existing item, browse to mathHelpers
+//inclde .h and .cpp
+//#include relative path of Calculator app.h and buttonFactory.h
+//
+//"Assert::AreEqual(desired assertion, expected solution)"
+//when test explorer is clicked on, click run test(s)
+//
+
+
