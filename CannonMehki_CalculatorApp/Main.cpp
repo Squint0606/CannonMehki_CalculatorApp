@@ -177,18 +177,21 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 		commands.clear();
 	}
 
+	wxString std = m_txtBox1->GetValue();
+
 	if (evt.GetId() == 18)
 	{
-
+		m_txtBox1->SetLabelText(processor->GetBin((std::string)std));
 	}
 
 	if (evt.GetId() == 19)
 	{
-
+		m_txtBox1->SetLabelText(processor->GetHex((std::string)std));
 	}
 
-	if (evt.GetId() == 20) {
-
+	if (evt.GetId() == 20) 
+	{
+		m_txtBox1->SetLabelText(processor->GetDec((std::string)std));
 	}
 
 

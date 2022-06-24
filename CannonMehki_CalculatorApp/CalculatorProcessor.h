@@ -55,32 +55,32 @@ public:
 		return ans;
 	}
 
-	std::string GetDecimal()
+	std::string GetDec(std::string result)
 	{
-		return std::to_string(baseNumber);
+		return result;
 	}
-
-	std::string GetBin()
+	//to int "std::atoi()"
+	std::string GetBin(std::string decimal)
 	{
-		std::string result = "";
-		int num = baseNumber;
+		std::string result;
+		int num = std::atoi(decimal.c_str());
 
-		for (int i = 0; i < 32; i++)
+		for (int i = 0; i < 16; i++)
 		{
-			if (baseNumber % 2 == 0)
+			if (num % 2 == 0)
 				result = "0" + result;
 			else
 				result = "1" + result;
+			num = num / 2;
 		}
 
-		num = num / 2;
 		return result;
-	}
+	}	
 
-	std::string GetHex()
+	std::string GetHex(std::string decimal)
 	{
-		std::string result = "";
-		int num = baseNumber;
+		std::string result;
+		int num = std::atoi(decimal.c_str());
 
 		while (num > 0)
 		{
