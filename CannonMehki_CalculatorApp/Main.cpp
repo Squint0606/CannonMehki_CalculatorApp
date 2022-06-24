@@ -176,6 +176,23 @@ void Main::OnButtonClicked(wxCommandEvent& evt)
 		}
 		commands.clear();
 	}
+
+	if (evt.GetId() == 18)
+	{
+
+	}
+
+	if (evt.GetId() == 19)
+	{
+
+	}
+
+	if (evt.GetId() == 20) {
+
+	}
+
+
+
 	evt.Skip();
 }
 
